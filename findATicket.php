@@ -51,7 +51,7 @@
       if ($result->num_rows > 0) {
           // output data of each row
           while($row = $result->fetch_assoc()) {
-              echo "Email: " . $row["Email"]. " - isEmployee: " . $row["EMPLOYEE"]. " TELEPHONE: " . $row["TELEPHONE"]. "<br>";
+              echo "Ticket #: " . $row["Ticket"]. " - Description: " . $row["Description"]. " Email: " . $row["Email"]. "<br>";
           }
       } else {
           echo "0 results " . "<br>";

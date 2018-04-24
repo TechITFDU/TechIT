@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Apr 24, 2018 at 02:08 AM
+-- Generation Time: Apr 24, 2018 at 05:54 PM
 -- Server version: 10.1.31-MariaDB
 -- PHP Version: 7.2.4
 
@@ -30,7 +30,7 @@ SET time_zone = "+00:00";
 
 CREATE TABLE `tickets` (
   `Ticket` int(11) NOT NULL,
-  `Decription` varchar(2048) NOT NULL,
+  `Description` varchar(2048) NOT NULL,
   `Email` varchar(254) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
@@ -74,6 +74,16 @@ ALTER TABLE `tickets`
 --
 ALTER TABLE `users`
   ADD PRIMARY KEY (`Email`);
+
+--
+-- AUTO_INCREMENT for dumped tables
+--
+
+--
+-- AUTO_INCREMENT for table `tickets`
+--
+ALTER TABLE `tickets`
+  MODIFY `Ticket` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- Constraints for dumped tables
