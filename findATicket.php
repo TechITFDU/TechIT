@@ -16,7 +16,7 @@
       <ul class="navbar-nav mr-auto">
         <li class="nav-item"> <a class="nav-link" href="index.html">Home <span class="sr-only">(current)</span></a> </li>
         <li class="nav-item"> <a class="nav-link" href="postATicket.html">Post a ticket</a></li>
-        <li class="nav-item active"> <a class="nav-link" href="findATicket.html">Find a ticket</a></li>
+        <li class="nav-item active"> <a class="nav-link" href="findATicket.php">Find a ticket</a></li>
         <li class="nav-item"> <a class="nav-link" href="#">Become an expert</a></li>
         <li class="nav-item"> </li>
       </ul>
@@ -29,8 +29,38 @@
   <main>
     <h1 class="text-center text-capitalize">Find a ticket</h1>
     <form id="form1" name="form1" method="post">
-      <p>No available tickets</p>
-Content for form Goes Here
+    <body>
+      <?php 
+
+      $servername = "localhost";
+      $username = "root";
+      $password = "";
+      $dbname = "test1";
+
+      // Create connection
+      $conn = new mysqli($servername, $username, $password, $dbname);
+
+      // Check connection
+      if ($conn->connect_error) {
+          die("Connection failed: " . $conn->connect_error) . "<br>";
+      } 
+      echo "Connected successfully" . "<br>";
+
+      $sql = "SELECT * FROM tickets";
+      $result = $conn->query($sql);
+      if ($result->num_rows > 0) {
+          // output data of each row
+          while($row = $result->fetch_assoc()) {
+              echo "Email: " . $row["Email"]. " - isEmployee: " . $row["EMPLOYEE"]. " TELEPHONE: " . $row["TELEPHONE"]. "<br>";
+          }
+      } else {
+          echo "0 results " . "<br>";
+      }
+      $conn->close();
+
+      ?>
+    </body>
+
     </form>
 <div> </div>
   </main>
@@ -49,4 +79,6 @@ Content for form Goes Here
     <script src="js/popper.min.js"></script>
     <script src="js/bootstrap-4.0.0.js"></script>
   </body>
+
+  
 </html>
