@@ -45,7 +45,6 @@
           die("Connection failed: " . $conn->connect_error) . "<br>";
       } 
       echo "Connected successfully" . "<br>";
-
       $sql = "SELECT * FROM tickets";
       $result = $conn->query($sql);
       if ($result->num_rows > 0) {
