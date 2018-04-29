@@ -17,13 +17,9 @@
         <li class="nav-item"> <a class="nav-link" href="index.html">Home <span class="sr-only">(current)</span></a> </li>
         <li class="nav-item"> <a class="nav-link" href="postATicket.html">Post a ticket</a></li>
         <li class="nav-item active"> <a class="nav-link" href="findATicket.php">Find a ticket</a></li>
-        <li class="nav-item"> <a class="nav-link" href="#">Become an expert</a></li>
         <li class="nav-item"> </li>
       </ul>
-      <form class="form-inline my-2 my-lg-0">
-        <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
-        <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
-      </form>
+
     </div>
   </nav>
   <main>
@@ -45,22 +41,79 @@
           die("Connection failed: " . $conn->connect_error) . "<br>";
       } 
       echo "Connected successfully" . "<br>";
-      $sql = "SELECT * FROM tickets";
+      $sql = "SELECT * FROM tickets WHERE status = 'unclaimed' ";
       $result = $conn->query($sql);
       if ($result->num_rows > 0) {
           // output data of each row
+         echo ("
+         <form id=\"submitTicket\" name=\"submitTicket\" method=\"post\">
+         <table id=\"dataTable\">
+          <tbody>");
+            $x =0;
           while($row = $result->fetch_assoc()) {
-              echo "Ticket #: " . $row["Ticket"]. " - Description: " . $row["Description"]. " Email: " . $row["Email"]. "<br>";
+
+              echo "<tr>
+              <td><input type=\"radio\" name=\"RadioGroup1\" value=" . $x ." id=\"RadioGroup1_" . $x . "\"></td> <td>Ticket #: " . $row["Ticket"]. "</td> <td>- Description: " . $row["Description"]. "</td> <td>Email: " . $row["Email"]. "</td>";
+                          echo ("
+                          
+                        </tr>"); 
+                        $x+=1;            
           }
       } else {
           echo "0 results " . "<br>";
       }
+echo("
+          </tbody>
+        </table>
+// javascript goes here
+<script>
+function showContent(tableID) {
+  var tbl = document.getElementById(tableID);
+  var rCount = tbl.rows.length;
+  try {
+    alert(tbl.rows[rCount-2].cells[0].children[0].value);
+    document.writeln('test');
+
+  } catch (e) {
+      alert(e);
+  }
+
+}            
+// var buttonSelected = document.querySelector('')
+showContent(\"dataTable\");
+</script>
+
+        <input name=\"ticket\" type=\"submit\" class=\"alert-success\" id=\"submit\" formaction=\"ClaimTicket.php\" value=\"Claim Ticket\"> &nbsp;
+        </form>"
+      
+      );
       $conn->close();
 
-      ?>
-    </body>
 
+
+      ?>
+
+
+    </body>
     </form>
+    <br>
+    <button onclick="myFunction()" type="button" class="btn btn-primary">Primary Button</button>
+
+      <script>
+        function myFunction() {
+        var selected = document.querySelector('input[name = "RadioGroup1"]:checked').value;
+        alert("you selected "+ selected);
+        return;
+        }
+      </script>
+
+
+
+    <br>
+    <br>    
+
+        <br>   
+
 <div> </div>
   </main>
 <footer class="text-center">
