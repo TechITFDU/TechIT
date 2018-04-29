@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Apr 24, 2018 at 05:54 PM
+-- Generation Time: Apr 29, 2018 at 05:58 AM
 -- Server version: 10.1.31-MariaDB
 -- PHP Version: 7.2.4
 
@@ -31,8 +31,23 @@ SET time_zone = "+00:00";
 CREATE TABLE `tickets` (
   `Ticket` int(11) NOT NULL,
   `Description` varchar(2048) NOT NULL,
-  `Email` varchar(254) NOT NULL
+  `Email` varchar(254) NOT NULL,
+  `status` enum('unclaimed','in-progress','resolved','') NOT NULL DEFAULT 'unclaimed'
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `tickets`
+--
+
+INSERT INTO `tickets` (`Ticket`, `Description`, `Email`, `status`) VALUES
+(1, 'uigfdg', 'will@example.com', 'unclaimed'),
+(4, 'Help me with project', 'helpme@example.com', 'unclaimed'),
+(6, '8189', 'helpme@example.com', 'unclaimed'),
+(7, 'halp!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!1111', 'will@example.com', 'unclaimed'),
+(8, 'halp!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!1111', 'will@example.com', 'unclaimed'),
+(9, 'My name is Paul prentetnding to be tom', 'tom@example.com', 'unclaimed'),
+(10, 'ibuh', 'paul@example.com', 'unclaimed'),
+(25, 'So I bought this macbook....', 'paul@example.com', 'unclaimed');
 
 -- --------------------------------------------------------
 
@@ -67,7 +82,7 @@ INSERT INTO `users` (`Email`, `EMPLOYEE`, `TELEPHONE`) VALUES
 --
 ALTER TABLE `tickets`
   ADD PRIMARY KEY (`Ticket`),
-  ADD UNIQUE KEY `Foreign_Key` (`Email`);
+  ADD KEY `Foreign_Key` (`Email`) USING BTREE;
 
 --
 -- Indexes for table `users`
@@ -83,7 +98,7 @@ ALTER TABLE `users`
 -- AUTO_INCREMENT for table `tickets`
 --
 ALTER TABLE `tickets`
-  MODIFY `Ticket` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `Ticket` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=26;
 
 --
 -- Constraints for dumped tables
