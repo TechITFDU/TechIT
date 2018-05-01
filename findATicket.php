@@ -47,7 +47,7 @@
           // output data of each row
          echo ("
          <form id=\"submitTicket\" name=\"submitTicket\" method=\"post\">
-         <table id=\"dataTable\">
+         <table class ='table table-hover' id='tableSelect'>
           <tbody>");
             $x =0;
           while($row = $result->fetch_assoc()) {
@@ -67,20 +67,11 @@ echo("
         </table>
 // javascript goes here
 <script>
-function showContent(tableID) {
-  var tbl = document.getElementById(tableID);
-  var rCount = tbl.rows.length;
-  try {
-    alert(tbl.rows[rCount-2].cells[0].children[0].value);
-    document.writeln('test');
-
-  } catch (e) {
-      alert(e);
-  }
-
-}            
+          $('#tableSelect tr').click(function() {
+    $(this).find('th input[type=radio]').prop('checked', true);
+})
 // var buttonSelected = document.querySelector('')
-showContent(\"dataTable\");
+
 </script>
 
         <input name=\"ticket\" type=\"submit\" class=\"alert-success\" id=\"submit\" formaction=\"ClaimTicket.php\" value=\"Claim Ticket\"> &nbsp;
@@ -103,6 +94,8 @@ showContent(\"dataTable\");
         function myFunction() {
         var selected = document.querySelector('input[name = "RadioGroup1"]:checked').value;
         alert("you selected "+ selected);
+        function clickedbutton(buttonid,orderid){ buttonid = "button" + buttonid; $.ajax({ data: 'orderid=' + orderid, url: 'statusupdate.php', method: 'POST',
+      });
         return;
         }
       </script>
