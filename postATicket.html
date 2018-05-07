@@ -54,8 +54,8 @@
                                     tel: myTel,
                                     description: myDescription
                                 },
-                                function(data, status) {
-                                    if (!alert(data + "\nStatus: " + status)) {
+                                function(data) {
+                                    if (!alert(data)) {
                                         window.location.reload();
                                     };
                                 });

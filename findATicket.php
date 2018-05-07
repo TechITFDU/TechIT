@@ -46,39 +46,33 @@
       $sql = "SELECT * FROM tickets WHERE status = 'unclaimed' ";
       $result = $conn->query($sql);
       if ($result->num_rows > 0) {
-          // output data of each row
+          // output table header
          echo ("
          <form id=\"submitTicket\" name=\"submitTicket\" method=\"post\">
          <table class ='table table-striped' id='tableSelect'>
           <tbody>
           <th class='text-left'> </th>
           <th class='text-left'> Ticket Number </th>
-          <th class='text-left'> Description </th>
-          <th class='text-left'> Email </th>");
+          <th class='text-left'> Description </th>");
             $x =0;
+            // output data for each row dynamically
           while($row = $result->fetch_assoc()) {
-
               echo "<tr class='text-left'>
-              <td><input type=\"radio\" name=\"RadioGroup1\" value=" . $x ." id=\"RadioGroup1_" . $x . "\"></td> <td>" . $row["Ticket"]. "</td> <td>" . $row["Description"]. "</td> <td>" . $row["Email"]. "</td>";
+              <td><input type=\"radio\" name=\"RadioGroup1\" value=" . $x ." id=\"RadioGroup1_" . $x . "\"></td> <td>" . $row["Ticket"]. "</td> <td>" . $row["Description"]. "</td>";
                           echo ("
                           
                         </tr>"); 
                         $x+=1;            
           }
       } else {
-          echo "0 results " . "<br>";
+          echo "No tickets found, try again later" . "<br>";
       }
-echo("
+          echo("
           </tbody>
         </table>"
-      
-      );
+        );
       $conn->close();
-
-
-
       ?>
-
 
     </body>
     </form>
@@ -87,7 +81,6 @@ echo("
       <script>
       $(document).ready(function(){
           $("button").click(function(){
-
             var selected = findSelectedRadioButton();
               $.post("ChangeTicketStatus.php",
               {

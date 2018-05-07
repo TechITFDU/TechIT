@@ -46,7 +46,7 @@
       $sql = "SELECT * FROM tickets WHERE status = 'in-progress' ";
       $result = $conn->query($sql);
       if ($result->num_rows > 0) {
-          // output data of each row
+          // output table header
          echo ("
          <form id=\"submitTicket\" name=\"submitTicket\" method=\"post\">
          <table class ='table table-striped' id='tableSelect'>
@@ -57,39 +57,31 @@
           <th class='text-left'> Email </th>
           <th class='text-left'> Telephone </th>");
             $x =0;
+            // output row of each table dynamically
           while($row = $result->fetch_assoc()) {
 
               echo "<tr class='text-left'>
               <td><input type=\"radio\" name=\"RadioGroup1\" value=" . $x ." id=\"RadioGroup1_" . $x . "\"></td> <td>" . $row["Ticket"]. "</td> <td>" . $row["Description"]. "</td> <td>" . $row["Email"]. "</td>" . "<td>". $row["Telephone"]. "</td>";
                           echo ("
-                          
                         </tr>"); 
                         $x+=1;            
           }
       } else {
-          echo "0 results " . "<br>";
+          echo "0 Results, click \"Find a Ticket\" and claim a ticket to find it here!" . "<br>";
       }
 echo("
           </tbody>
         </table>"
-      
       );
       $conn->close();
-
-
-
       ?>
-
-
     </body>
     </form>
-
 
       <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
       <script>
 
           function postTicketStatusChange(statusToChangeTo){
-            
             var selected = findSelectedRadioButton();
               $.post("ChangeTicketStatus.php",
               {
@@ -100,7 +92,6 @@ echo("
               function(data,status){
                   if (!alert(data)){ window.location.reload(); };
               });}
-
       </script>
       <button type="button" onclick="postTicketStatusChange('resolved')" class="btn btn-primary">Resolve Ticket</button>
       <button type="button" onclick="postTicketStatusChange('unclaimed')" class="btn btn-primary">Unclaim Ticket</button>
@@ -114,16 +105,10 @@ echo("
         // alert("you selected " + selected);
         return selected;
       }
-
       </script>
-
-
-
     <br>
     <br>    
-
         <br>   
-
 <div> </div>
   </main>
 <footer class="text-center">
@@ -141,6 +126,4 @@ echo("
     <script src="js/popper.min.js"></script>
     <script src="js/bootstrap-4.0.0.js"></script>
   </body>
-
-  
 </html>

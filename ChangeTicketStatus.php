@@ -5,12 +5,6 @@ $currentTicketStatus = $_POST['currentTicketStatus'];
 $statusToSetTo = $_POST['statusToSetTo'];
 
 
-    // $radioSelected=$_POST['RadioGroup1_5'];
-    // echo $radioSelected;
-    // for ($i = 0; $i<=)
-    
-	// echo $email . " " . $telephone . " " . $description;
-
 	$servername = "localhost";
 	$username = "root";
 	$password = "";
@@ -29,7 +23,6 @@ $statusToSetTo = $_POST['statusToSetTo'];
 			RIGHT JOIN (SELECT * FROM `tickets` WHERE `status`='$currentTicketStatus' LIMIT 1 OFFSET $ticketNum) b on a.Ticket=b.Ticket
 			SET a.status = '$statusToSetTo'";
 
-	// echo $sql;
 	$result = $conn->query($sql);
 	if (!$result){	
 		echo ("Error: Ticket claim was not added." .

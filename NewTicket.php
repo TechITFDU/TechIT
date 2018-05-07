@@ -9,8 +9,6 @@ if ($email==""||$telephone==""||$description==""){
 }
 else
 {
-	// echo $email . " " . $telephone . " " . $description;
-
 	$servername = "localhost";
 	$username = "root";
 	$password = "";
