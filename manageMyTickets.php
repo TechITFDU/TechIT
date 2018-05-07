@@ -17,15 +17,15 @@
       <li class="nav-item active"> <a class="nav-link" href="index.html">TechIT <span class="sr-only">(current)</span></a> </li>
         <li class="nav-item"> <a class="nav-link" href="index.html">Home <span class="sr-only">(current)</span></a> </li>
         <li class="nav-item"> <a class="nav-link" href="postATicket.html">Post a ticket</a></li>
-        <li class="nav-item active"> <a class="nav-link" href="findATicket.php">Find a ticket</a></li>
-        <li class="nav-item"> <a class="nav-link" href="manageMyTickets.php">Manage My Tickets</a></li>
+        <li class="nav-item"> <a class="nav-link" href="findATicket.php">Find a ticket</a></li>
+        <li class="nav-item active"> <a class="nav-link" href="manageMyTickets.php">Manage My Tickets</a></li>
         <li class="nav-item"> </li>
       </ul>
 
     </div>
   </nav>
   <main>
-    <h1 class="text-center text-capitalize">Find a ticket</h1>
+    <h1 class="text-center text-capitalize">Manage Active Tickets</h1>
     <form id="form1" name="form1" method="post">
     <body>
       <?php 
@@ -43,7 +43,7 @@
           die("Connection failed: " . $conn->connect_error) . "<br>";
       } 
       // echo "Connected successfully" . "<br>";
-      $sql = "SELECT * FROM tickets WHERE status = 'unclaimed' ";
+      $sql = "SELECT * FROM tickets WHERE status = 'in-progress' ";
       $result = $conn->query($sql);
       if ($result->num_rows > 0) {
           // output data of each row
@@ -54,12 +54,13 @@
           <th class='text-left'> </th>
           <th class='text-left'> Ticket Number </th>
           <th class='text-left'> Description </th>
-          <th class='text-left'> Email </th>");
+          <th class='text-left'> Email </th>
+          <th class='text-left'> Telephone </th>");
             $x =0;
           while($row = $result->fetch_assoc()) {
 
               echo "<tr class='text-left'>
-              <td><input type=\"radio\" name=\"RadioGroup1\" value=" . $x ." id=\"RadioGroup1_" . $x . "\"></td> <td>" . $row["Ticket"]. "</td> <td>" . $row["Description"]. "</td> <td>" . $row["Email"]. "</td>";
+              <td><input type=\"radio\" name=\"RadioGroup1\" value=" . $x ." id=\"RadioGroup1_" . $x . "\"></td> <td>" . $row["Ticket"]. "</td> <td>" . $row["Description"]. "</td> <td>" . $row["Email"]. "</td>" . "<td>". $row["Telephone"]. "</td>";
                           echo ("
                           
                         </tr>"); 
@@ -83,28 +84,27 @@ echo("
     </body>
     </form>
 
+
       <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
       <script>
-      $(document).ready(function(){
-          $("button").click(function(){
 
+          function postTicketStatusChange(statusToChangeTo){
+            
             var selected = findSelectedRadioButton();
               $.post("ChangeTicketStatus.php",
               {
                 ticketNum: selected,
-                currentTicketStatus: "unclaimed",
-                statusToSetTo: "in-progress"
+                currentTicketStatus: "in-progress",
+                statusToSetTo: statusToChangeTo
               },
               function(data,status){
                   if (!alert(data)){ window.location.reload(); };
-              });
-          });
-      });
+              });}
+
       </script>
-      <body>
-
-            <button type="button" class="btn btn-primary">Claim Ticket</button>
-
+      <button type="button" onclick="postTicketStatusChange('resolved')" class="btn btn-primary">Resolve Ticket</button>
+      <button type="button" onclick="postTicketStatusChange('unclaimed')" class="btn btn-primary">Unclaim Ticket</button>
+           </head>
     <br>
     <!-- <button onclick="findSelectedRadioButton()" type="button" class="btn btn-primary">Primary Button</button> -->
 

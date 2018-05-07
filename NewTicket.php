@@ -1,20 +1,14 @@
-<!doctype html>
-<html>
-<head>
-<meta charset="utf-8">
-<!-- TemplateBeginEditable name="doctitle" -->
-<title>Untitled Document</title>
-<!-- TemplateEndEditable -->
-<!-- TemplateBeginEditable name="head" -->
-<!-- TemplateEndEditable -->
-</head>
-</form>
-<body>
-	<?php 
-	print_r($_POST);
-	$email=$_POST['email'];
-	$telephone= $_POST['tel'];
-	$description= $_POST['description'];
+<?php 
+// print_r($_POST);
+$email=$_POST['email'];
+$telephone= $_POST['tel'];
+$description= $_POST['description'];
+
+if ($email==""||$telephone==""||$description==""){
+	echo ("Error: Please make sure all fields have a value.");
+}
+else
+{
 	// echo $email . " " . $telephone . " " . $description;
 
 	$servername = "localhost";
@@ -29,29 +23,23 @@
 	if ($conn->connect_error) {
 		die("Connection failed: " . $conn->connect_error) . "<br>";
 	} 
-	echo "Connected successfully" . "<br>";
+	// echo "Connected successfully";
 
-	$sql = "INSERT into tickets (`Description`,`Email`) values ('$description','$email')";
+	$sql = "INSERT into tickets (`Description`,`Email`,`Telephone`) values ('$description','$email','$telephone')";
 	$result = $conn->query($sql);
 	if (!$result){	
-		if ($conn->errno==1452){
-			echo ("<p>We do not have that Email address on file. Make sure you typed it in correctly. You must register for an account first!</p>");
-		}
-		else
-		echo ("<p>Error: Ticket information was not added.</p>" .
-				"<p>Error code $conn->errno: $conn->error. </p>");
+		echo ("Error: Ticket information was not added.\n" .
+				"Error code $conn->errno: $conn->error.");
 		$conn->close();
 		exit;
 		}
 		else{
-			echo ("<p>Ticket successfully submitted. An expert will be in contact with you shortly.</p>");
+			echo ("Ticket successfully submitted. An expert will be in contact with you shortly.");
 		}
 
 
 
 	$conn->close();
+}
 
-	?>
-</body>
-</form>
-</html>
+?>
