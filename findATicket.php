@@ -43,9 +43,6 @@
           die("Connection failed: " . $conn->connect_error) . "<br>";
       } 
       // echo "Connected successfully" . "<br>";
-      $description = $conn->real_escape_string($description);
-      $email = $conn->real_escape_string($email);
-      $ticket = $conn->real_escape_string($ticket);
       $sql = "SELECT * FROM tickets WHERE status = 'unclaimed' ";
       $result = $conn->query($sql);
       if ($result->num_rows > 0) {

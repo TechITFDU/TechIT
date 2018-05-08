@@ -12,9 +12,6 @@ $statusToSetTo = $_POST['statusToSetTo'];
 
 	// Create connection
 	$conn = new mysqli($servername, $username, $password, $dbname);
-	$ticketNum = $conn->real_escape_string($ticketNum);
-	$currentTicketStatus = $conn->real_escape_string($currentTicketSTatus);
-	$statusToSetTo = $conn->real_escape_string($statusToSetTo);
 	// Check connection
 	if ($conn->connect_error) {
 		die("Connection failed: " . $conn->connect_error);
