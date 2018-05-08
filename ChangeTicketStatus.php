@@ -3,9 +3,7 @@
 $ticketNum = $_POST['ticketNum'];
 $currentTicketStatus = $_POST['currentTicketStatus'];
 $statusToSetTo = $_POST['statusToSetTo'];
-$ticketNum = $conn->real_escape_string($ticketNum);
-$currentTicketStatus = $conn->real_escape_string($currentTicketSTatus);
-$statusToSetTo = $conn->real_escape_string($statusToSetTo);
+
 
 	$servername = "localhost";
 	$username = "root";
@@ -14,7 +12,9 @@ $statusToSetTo = $conn->real_escape_string($statusToSetTo);
 
 	// Create connection
 	$conn = new mysqli($servername, $username, $password, $dbname);
-
+	$ticketNum = $conn->real_escape_string($ticketNum);
+	$currentTicketStatus = $conn->real_escape_string($currentTicketSTatus);
+	$statusToSetTo = $conn->real_escape_string($statusToSetTo);
 	// Check connection
 	if ($conn->connect_error) {
 		die("Connection failed: " . $conn->connect_error);

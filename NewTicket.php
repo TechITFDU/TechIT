@@ -3,9 +3,7 @@
 $email=$_POST['email'];
 $telephone= $_POST['tel'];
 $description= $_POST['description'];
-$description = $conn->real_escape_string($description);
-$email = $conn->real_escape_string($email);
-$telephone = $conn->real_escape_string($telephone);
+
 
 if ($email==""||$telephone==""||$description==""){
 	echo ("Error: Please make sure all fields have a value.");
@@ -19,7 +17,9 @@ else
 
 	// Create connection
 	$conn = new mysqli($servername, $username, $password, $dbname);
-
+	$description = $conn->real_escape_string($description);
+	$email = $conn->real_escape_string($email);
+	$telephone = $conn->real_escape_string($telephone);
 	// Check connection
 	if ($conn->connect_error) {
 		die("Connection failed: " . $conn->connect_error) . "<br>";
