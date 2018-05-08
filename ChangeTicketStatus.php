@@ -3,7 +3,9 @@
 $ticketNum = $_POST['ticketNum'];
 $currentTicketStatus = $_POST['currentTicketStatus'];
 $statusToSetTo = $_POST['statusToSetTo'];
-
+$ticketNum = $conn->real_escape_string($ticketNum);
+$currentTicketStatus = $conn->real_escape_string($currentTicketSTatus);
+$statusToSetTo = $conn->real_escape_string($statusToSetTo);
 
 	$servername = "localhost";
 	$username = "root";
